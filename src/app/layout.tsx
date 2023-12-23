@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import LeftNavigation from '@/components/LeftNavigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +17,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+      <main className="App">
+			<div className='flex flex-row'>
+				{/* Left side page navigation */}
+					<LeftNavigation />
+				{/* Right side contents */}
+        <div className='ml-12  md:ml-44 lg:ml-52'>
+          {children}
+        </div>
+			</div>
+		</main>
+      </body>
     </html>
   )
 }
