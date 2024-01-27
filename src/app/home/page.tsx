@@ -1,4 +1,5 @@
 "use client";
+import { INote } from '@/Note/notes';
 import EmptyNoteView from '@/components/EmptyNoteView';
 import Modal from '@/components/Modal'
 import NewNote from '@/components/NewNote'
@@ -15,7 +16,7 @@ function HomePage() {
             {/* note lists */}
             <NotesList setNote={setNote} />
             {/* opened notes */}
-            {note!==null ? <NoteView note={note}  /> : <EmptyNoteView />}
+            {note!==null ? <NoteView note={note} setNote={setNote} /> : <EmptyNoteView />}
         </div>
     )
 }

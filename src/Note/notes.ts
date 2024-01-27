@@ -15,6 +15,5 @@ export interface INote{
     id : String,
     title : String,
     content ?: String,
-    _createdDate: Date,
-    setContent : Function
+    _createdDate: Date
 }

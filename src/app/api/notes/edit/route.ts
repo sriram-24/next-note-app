@@ -1,12 +1,12 @@
+import { Note } from "@/lib/mongo/Note";
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
-import { Note } from "@/lib/mongo/Note"
 
 export async function POST(
     req : NextRequest,
     res : NextResponse
 ){
-
     const MONGOURI = process.env.MONGODB_URI;
     let client;
     let data;
@@ -16,8 +16,8 @@ export async function POST(
         data = await req.json()
         const {id, title, content, _createdDate} = data;
        
-        if(!title || !content){
-            return NextResponse.json({message: "Invalid request : title or content is empty"},{
+        if(!title || !content || !id){
+            return NextResponse.json({message: "Invalid request : title or content or id is empty"},{
                 status:400
             })
         }
@@ -54,21 +54,29 @@ export async function POST(
         })
         
     }
-    
-    const noteData = {
-        title:data.title,
-        content : data.content,
-        _createdDate : data._createdDate
-    }
 
     try {
-         const data = await Note.create(noteData)
-        return NextResponse.json(data,{
-            status:201
-        })
+        const noteData = {
+            title:data.title,
+            content : data.content,
+            _createdDate : data._createdDate
+        }
+
+        if(!ObjectId.isValid(data.id)){
+            return NextResponse.json({})
+        }
+        const responseData = await Note.findByIdAndUpdate(data.id,noteData)
+        
+        
+        if(!responseData){
+            return NextResponse.json({})
+        }
+        
+        return NextResponse.json(responseData)
+        
         
     } catch (error) {
-        const msg = `There was an while sending data : ${error}`;
+        const msg = `There was an error updating data to mongo db : ${error}`;
         let errorResponse =  {
             message : msg
         
@@ -77,4 +85,5 @@ export async function POST(
             status:500
         })
     }
+
 }
