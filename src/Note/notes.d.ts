@@ -12,8 +12,8 @@ export interface NoteViewProps{
 }
 
 export interface INote{
-    id : String,
-    title : String,
+    id ?: String,
+    title ?: String,
     content ?: String,
-    _createdDate: Date
+    _createdDate ?: Date
 }

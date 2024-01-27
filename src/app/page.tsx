@@ -6,10 +6,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import HomePage from './home/page'
+import { Provider } from 'jotai'
+import { notesStore } from '@/store/store'
 
 export default function Home() {
 
 	return (
-		<HomePage  />
+		<Provider store={notesStore}>
+			<HomePage  />
+		</Provider>
+		
 	)
 }
