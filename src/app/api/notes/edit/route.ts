@@ -65,7 +65,7 @@ export async function POST(
         if(!ObjectId.isValid(data.id)){
             return NextResponse.json({})
         }
-        const responseData = await Note.findByIdAndUpdate(data.id,noteData)
+        const responseData = await Note.findByIdAndUpdate(data.id,noteData,{new: true})
         
         
         if(!responseData){

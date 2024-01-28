@@ -1,5 +1,5 @@
 "use client";
-import { INote } from '@/Note/notes';
+import { INote } from '@/utils/notes';
 import EmptyNoteView from '@/components/EmptyNoteView';
 import Modal from '@/components/Modal'
 import NewNote from '@/components/NewNote'

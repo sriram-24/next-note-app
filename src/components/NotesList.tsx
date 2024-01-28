@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Modal from './Modal'
 import NewNote from './NewNote'
-import { INote, NoteViewProps } from '@/Note/notes'
+import { INote, NoteViewProps } from '@/utils/notes'
 import { v4 as uuidv4 } from 'uuid';
-import { getAllNotes } from '@/Note/getAllNotes';
+import { getAllNotes } from '@/utils/getAllNotes';
 import moment from 'moment';
+import { useAtom } from 'jotai';
+import { notesList } from '@/store/store';
 
 
 function NotesList({ setNote }: NoteViewProps) {
-    const [noteList, setNoteList] = useState([])
+    const [noteList, setNoteList] = useAtom(notesList)
     const newNote = () => {
         const note: INote = {
             id: uuidv4(),
@@ -22,7 +24,7 @@ function NotesList({ setNote }: NoteViewProps) {
     }
 
     const getNoteById = (note: any) => {
-        fetch(`http://localhost:3000/api/notes/${note._id}`, {
+        fetch(`/api/notes/${note._id}`, {
             method: "GET",
         }).then(async (note: any) => {
             let newnote = await note.json()
@@ -35,6 +37,8 @@ function NotesList({ setNote }: NoteViewProps) {
                         content : newnote.content,
                         _createdDate: newnote._createdDate
                     } 
+                    console.log(note);
+                    
                     setNote(note)
                 }
             }
@@ -43,16 +47,7 @@ function NotesList({ setNote }: NoteViewProps) {
     }
 
     useEffect(() => {
-        getAllNotes().then((noteList: any) => {
-            if (noteList) {
-                setNoteList(noteList)
-                console.log("notelist added");
-                console.log(noteList);
-
-
-            }
-
-        })
+        setNoteList(true);
     }, [])
 
     return (

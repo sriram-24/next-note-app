@@ -2,7 +2,7 @@ import { INote } from "./notes";
 
 
 export async function saveNotesChanges(note : INote){
-    console.log("edit execution")
+
     const updateResponse = await fetch("/api/notes/edit",{
         method:"POST",
         body:JSON.stringify(note),
