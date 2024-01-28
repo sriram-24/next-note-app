@@ -68,7 +68,6 @@ function NoteView({ note, setNote }: NoteViewProps) {
 		<div className=" hidden md:block md:ml-64 p-4">
 			<div>
 				<div>
-					<h4 className="font-bold">{note?.title}</h4>
 					<input
 						className="font-bold"
 						type="text"
