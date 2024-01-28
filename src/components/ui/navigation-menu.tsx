@@ -53,6 +53,8 @@ React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
 />
 ))
 
+NavigationMenuItem.displayName = NavigationMenuPrimitive.Item.displayName
+
 
 const navigationMenuTriggerStyle = cva(
   "group inline-flex h-8 mt-1 mb-1 w-full items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
@@ -105,6 +107,7 @@ React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>
 />
 ))
 
+NavigationMenuLink.displayName = NavigationMenuPrimitive.Link.displayName
 
 const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
