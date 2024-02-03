@@ -29,12 +29,19 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "rgba(var(--primary-color))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "rgba(var(--secondary-color))",
+          
+        },
+        tertiary : {
+          DEFAULT:"rgba(var(--tertiary-color))",
+          background: "rgba(var(--tertiary-background))"
+        },
+        surface : {
+          DEFAULT:"rgba(var(--surface-color))",
+          background: "rgba(var(--surface-background))"
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

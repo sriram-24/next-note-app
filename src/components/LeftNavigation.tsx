@@ -13,7 +13,7 @@ import Link from 'next/link'
 
 function LeftNavigation() {
     return (
-        <div className='bg-[#3f7afe] w-12  md:w-44 lg:w-52 flex-initial fixed p-2 h-full'>
+        <div className='bg-secondary/95 w-12 h-screen  md:w-44 lg:w-52 flex-grow-0 flex-shrink-0 basis-[12%] p-2'>
             {/* <div className='m-2 flex justify-center'>
             <a  href='/home'
                 className='flex hover:bg-white/20 focus:bg-white/40 p-2 flex-1  rounded cursor-pointer'
@@ -34,15 +34,18 @@ function LeftNavigation() {
                 <NavigationMenuList>
                     <NavigationMenuItem>
                         <Link href="/home" legacyBehavior passHref>
+                        
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Home
+                            <Home className=''/>
+                            <span className='ml-2'>Home</span>
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <Link href="/categories" legacyBehavior passHref className='w-full'>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Categories
+                                <List />
+                                <span className='ml-2'>Categories </span>
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>

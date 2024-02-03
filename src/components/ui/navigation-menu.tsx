@@ -46,7 +46,7 @@ React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
   return <NavigationMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "group flex flex-1 list-none items-center justify-center space-x-1 w-full",
+      "group flex flex-1 list-none items-center justify-center space-x-1 w-full text-primary",
       className
     )}
     {...props} />;
@@ -56,7 +56,7 @@ NavigationMenuItem.displayName = NavigationMenuPrimitive.Item.displayName
 
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-8 mt-1 mb-1 w-full items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+  "group inline-flex h-8 mt-1 mb-1 w-full items-center rounded-md px-4 py-2 rounded text-sm font-medium transition-colors hover:bg-surface hover:text-secondary focus:bg-surface/90 focus:text-secondary focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-surface/50 data-[state=open]:bg-surface/50"
 )
 
 const NavigationMenuTrigger = React.forwardRef<

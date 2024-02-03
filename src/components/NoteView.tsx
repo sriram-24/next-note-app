@@ -65,7 +65,7 @@ function NoteView({ note, setNote }: NoteViewProps) {
 	}, [hasUnsavedChanges]);
 
 	return (
-		<div className=" hidden md:block md:ml-64 p-4">
+		<div className=" hidden md:block flex-grow-0 flex-shrink-0 basis-3/4 bg-surface p-6">
 			<div>
 				<div>
 					<input
@@ -84,7 +84,7 @@ function NoteView({ note, setNote }: NoteViewProps) {
 					</button>
 				</div>
 			</div>
-			<div className="mt-5 h-full " key={note?.id?.toString()}>
+			<div className="" key={note?.id?.toString()}>
 				<MdEditor
 					modelValue={note?.content ? note.content.toString() : ""}
 					onChange={(e) => {

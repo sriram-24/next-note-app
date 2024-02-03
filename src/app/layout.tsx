@@ -26,11 +26,11 @@ export default function RootLayout({
           fontSans.variable
         )}>
 				<main className="App">
-					<div className='flex flex-row'>
+					<div className='flex flex-wrap'>
 						{/* Left side page navigation */}
 						<LeftNavigation />
 						{/* Right side contents */}
-						<div className='ml-12  md:ml-44 lg:ml-52'>
+						<div className=' flex-grow-0 flex-shrink-0 basis-[88%]'>
 							{children}
 						</div>
 					</div>

@@ -14,7 +14,7 @@ function HomePage() {
     const [note,setNote] = useAtom(activeNote)
 
     return (
-        <div className='flex '>
+        <div className='flex flex-wrap'>
             
             {/* note lists */}
             <NotesList setNote={setNote} />

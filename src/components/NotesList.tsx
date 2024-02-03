@@ -6,11 +6,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { getAllNotes } from '@/utils/getAllNotes';
 import moment from 'moment';
 import { useAtom } from 'jotai';
-import { notesList } from '@/store/store';
+import { notesList, activeNote } from '@/store/store';
+import { Edit, Plus, Search } from 'react-feather';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 
 function NotesList({ setNote }: NoteViewProps) {
     const [noteList, setNoteList] = useAtom(notesList)
+    const [currentNote] = useAtom(activeNote)
+    console.log(currentNote);
+    
     const newNote = () => {
         const note: INote = {
             id: uuidv4(),
@@ -51,28 +56,48 @@ function NotesList({ setNote }: NoteViewProps) {
     }, [])
 
     return (
-        <div className='bg-gray-200/30 h-full fixed w-full md:w-64'>
+        <div className='bg-surface p-2 h-screen flex-grow-0 flex-shrink-0 basis-1/4'>
             {/* New Note button */}
-            <div className='w-full flex justify-center'>
-                <button onClick={() => { newNote() }}
-                    className='bg-green-500 p-2 rounded-md self-end mt-2 text-white w-36'
-                >New Note</button>
-
+            <div className='h-[15%] mt-2'>
+            <div className='flex justify-center'>
+                <div className="seach-box relative ">
+                    <div className='absolute mt-2 ml-2 text-gray-300'>
+                    <Search/>
+                    </div>
+                    <input type="text" placeholder='Search here' className='pl-12 pt-2 pb-2 pr-2 rounded-full'/>
+                </div>
             </div>
-            <div className='p-2'>
+            <div className='flex justify-between my-4 p-2'>
+                <div>
+                    <h4 className='font-bold text-lg'>My Notes</h4>
+                </div>
+                <div className='flex justify-center'>
+                    <button onClick={() => { newNote() }}
+                        className=' '
+                    >
+                        <Edit size={18}/>
+                    </button>
+                </div>
+            </div>
+            </div>
+            <div className='h-[85%] overflow-y-scroll p-2 scroll-'>
                 {
+                    
                     noteList.length > 0 ? noteList.map((note: any) => {
-                        return (<div key={note._id} id={note._id} >
-                            <div className='cursor-pointer' onClick={()=>{getNoteById(note)}}>
-                                <div className='flex flex-row justify-between'>
-                                <h4>{note.title}</h4>
-                                <span>{moment(note._createdDate).format('DD/MM/YYYY') }</span>
-                                </div>
-                                <div className='overflow-hidden truncate w-60'>
-                                <span className=''>{note.content}</span>
-                                </div>
-                            </div>
-                        </div>)
+                        return (
+                            <Card id={note._id} className={`cursor-pointer ${note._id === currentNote.id ? "bg-secondary/90 text-white":""}`} onClick={()=>{getNoteById(note)}}>
+                                <CardHeader>
+                                    <CardTitle>{note.title}</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                        <div>
+                                            {note.content}
+                                        </div>
+                                </CardContent>
+                            </Card>
+                           
+                            
+                        )
                     }) : <></>
                 }
             </div>
