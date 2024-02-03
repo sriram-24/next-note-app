@@ -41,7 +41,8 @@ const config = {
         },
         surface : {
           DEFAULT:"rgba(var(--surface-color))",
-          background: "rgba(var(--surface-background))"
+          background: "rgba(var(--surface-background))",
+          light: "#edf0f1"
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -85,7 +86,10 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require('@tailwindcss/line-clamp')
+  ],
 } satisfies Config
 
 export default config

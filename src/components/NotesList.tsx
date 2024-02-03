@@ -56,7 +56,7 @@ function NotesList({ setNote }: NoteViewProps) {
     }, [])
 
     return (
-        <div className='bg-surface p-2 h-screen flex-grow-0 flex-shrink-0 basis-1/4'>
+        <div className='bg-surface-light p-2 h-screen rounded-s-[30px] '>
             {/* New Note button */}
             <div className='h-[15%] mt-2'>
             <div className='flex justify-center'>
@@ -64,7 +64,10 @@ function NotesList({ setNote }: NoteViewProps) {
                     <div className='absolute mt-2 ml-2 text-gray-300'>
                     <Search/>
                     </div>
-                    <input type="text" placeholder='Search here' className='pl-12 pt-2 pb-2 pr-2 rounded-full'/>
+                    <input type="text"
+                        placeholder='Search here' 
+                        className='pl-12 pt-2 pb-2 pr-2 rounded-full focus:outline-1 focus:outline-secondary/30'
+                    />
                 </div>
             </div>
             <div className='flex justify-between my-4 p-2'>
@@ -80,26 +83,34 @@ function NotesList({ setNote }: NoteViewProps) {
                 </div>
             </div>
             </div>
-            <div className='h-[85%] overflow-y-scroll p-2 scroll-'>
-                {
-                    
-                    noteList.length > 0 ? noteList.map((note: any) => {
-                        return (
-                            <Card id={note._id} key={note._id}  className={`cursor-pointer ${note._id === currentNote.id ? "bg-secondary/90 text-white":""}`} onClick={()=>{getNoteById(note)}}>
-                                <CardHeader>
-                                    <CardTitle>{note.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                        <div>
-                                            {note.content}
-                                        </div>
-                                </CardContent>
-                            </Card>
-                           
+            <div className='h-[85%] pb-8'>
+                <div className='h-full overflow-y-auto snap-y pr-2' >
+                    {
+                        
+                        noteList.length > 0 ? noteList.map((note: any) => {
+                            return (
+                                <Card id={note._id} key={note._id}  
+                                    className={
+                                        `cursor-pointer max-h-32 overflow-hidden snap-start
+                                        ${note._id === currentNote.id ? "bg-secondary text-white":""}`
+                                    } 
+                                    onClick={()=>{getNoteById(note)}}
+                                >
+                                    <CardHeader>
+                                        <CardTitle>{note.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                            <p className='line-clamp-2'>
+                                                {note.content}
+                                            </p>
+                                    </CardContent>
+                                </Card>
                             
-                        )
-                    }) : <></>
-                }
+                                
+                            )
+                        }) : <></>
+                    }
+                </div>
             </div>
         </div>
     )

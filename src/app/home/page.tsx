@@ -14,10 +14,12 @@ function HomePage() {
     const [note,setNote] = useAtom(activeNote)
 
     return (
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap '>
             
             {/* note lists */}
-            <NotesList setNote={setNote} />
+            <div className='h-screen flex-grow-0 flex-shrink-0 basis-1/4 bg-secondary'>
+            <NotesList  setNote={setNote} />
+            </div>
             {/* opened notes */}
             {!isEmpty(note) ? <NoteView note={note} setNote={setNote} /> : <EmptyNoteView />}
         </div>

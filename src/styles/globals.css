@@ -6,7 +6,7 @@
   :root{
     --primary-color : 89, 165, 145;
     --surface-color : 247, 247, 248;
-    --secondary-color: 7, 14, 29;
+    --secondary-color: 20, 45, 76;
     --surface-background: 167, 178, 186;
     --tertiary-color : 63, 105, 102;
     --tertiary-background : 111, 121, 137;
@@ -19,6 +19,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    color: rgba(7, 14, 29);
   }
 }
 

@@ -6,6 +6,7 @@ import { MdEditor } from "md-editor-rt";
 import "md-editor-rt/lib/style.css";
 import React, { useEffect, useState } from "react";
 import { Save } from "react-feather";
+import moment from "moment";
 
 function NoteView({ note, setNote }: NoteViewProps) {
 	const [content, setContent] = useState("");
@@ -65,35 +66,42 @@ function NoteView({ note, setNote }: NoteViewProps) {
 	}, [hasUnsavedChanges]);
 
 	return (
-		<div className=" hidden md:block flex-grow-0 flex-shrink-0 basis-3/4 bg-surface p-6">
-			<div>
+		<div className=" hidden md:block flex-grow-0 flex-shrink-0 basis-3/4 bg-surface-background/20">
+			<div className="p-2 flex ml-4 mt-2 items-center justify-between">
 				<div>
 					<input
-						className="font-bold"
+						className="font-bold bg-surface-light focus:bg-white focus:outline-1 focus:outline-secondary/30 rounded-full py-2 pl-4"
 						type="text"
 						readOnly={writemodeTitle}
 						onClick={setWriteModeTitle}
 						value={note?.title ? note.title.toString() : ""}
 						onChange={setNoteTitle}
 					/>
-					<span>{hasUnsavedChanges ? "Unsaved changes" : null}</span>
+					
 				</div>
 				<div>
-					<button onClick={saveChanges}>
+					<span className="text-sm">{moment(note?._createdDate).format('MMMM D, YYYY')+" at "+ moment(note?._createdDate).format('h:m a')}</span>
+				</div>
+				<div className="flex items-center mr-6">
+					<span className="mr-4 ">{hasUnsavedChanges ? "Unsaved changes" : null}</span>
+					<button onClick={saveChanges} className="text-primary">
 						<Save />
 					</button>
 				</div>
 			</div>
-			<div className="" key={note?.id?.toString()}>
-				<MdEditor
-					modelValue={note?.content ? note.content.toString() : ""}
-					onChange={(e) => {
-						setContent(e);
-						setHasUnsavedChanges(true);
-					}}
-					preview={false}
-					language="en-US"
-				/>
+			<div className="rounded-s-[30px] bg-white p-6 ">
+				
+				<div className="" key={note?.id?.toString()}>
+					<MdEditor
+						modelValue={note?.content ? note.content.toString() : ""}
+						onChange={(e) => {
+							setContent(e);
+							setHasUnsavedChanges(true);
+						}}
+						preview={false}
+						language="en-US"
+					/>
+				</div>
 			</div>
 		</div>
 	);
