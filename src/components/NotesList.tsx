@@ -85,7 +85,7 @@ function NotesList({ setNote }: NoteViewProps) {
                     
                     noteList.length > 0 ? noteList.map((note: any) => {
                         return (
-                            <Card id={note._id} className={`cursor-pointer ${note._id === currentNote.id ? "bg-secondary/90 text-white":""}`} onClick={()=>{getNoteById(note)}}>
+                            <Card id={note._id} key={note._id}  className={`cursor-pointer ${note._id === currentNote.id ? "bg-secondary/90 text-white":""}`} onClick={()=>{getNoteById(note)}}>
                                 <CardHeader>
                                     <CardTitle>{note.title}</CardTitle>
                                 </CardHeader>
