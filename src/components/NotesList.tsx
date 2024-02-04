@@ -3,18 +3,19 @@ import Modal from './Modal'
 import NewNote from './NewNote'
 import { INote, NoteViewProps } from '@/utils/notes'
 import { v4 as uuidv4 } from 'uuid';
-import { getAllNotes } from '@/utils/getAllNotes';
+import { getAllNotes, getNotesBySearchTerm } from '@/utils/getAllNotes';
 import moment from 'moment';
 import { useAtom } from 'jotai';
 import { notesList, activeNote } from '@/store/store';
 import { Edit, Plus, Search } from 'react-feather';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { debounce } from 'lodash';
 
 
 function NotesList({ setNote }: NoteViewProps) {
     const [noteList, setNoteList] = useAtom(notesList)
     const [currentNote] = useAtom(activeNote)
-    console.log(currentNote);
+    const [searchTerm, setSearchTerm] = useState("");
     
     const newNote = () => {
         const note: INote = {
@@ -42,8 +43,6 @@ function NotesList({ setNote }: NoteViewProps) {
                         content : newnote.content,
                         _createdDate: newnote._createdDate
                     } 
-                    console.log(note);
-                    
                     setNote(note)
                 }
             }
@@ -51,8 +50,19 @@ function NotesList({ setNote }: NoteViewProps) {
 
     }
 
+    
+
+    const onChangeSerach = (e : any) =>{
+        setSearchTerm(e.target.value);
+        getNotesBySearchTerm(e.target.value).then((newNotesList)=>{
+            setNoteList(false, newNotesList)
+        })
+    }
+
+    const searchNotes = debounce(onChangeSerach,1000)
+
     useEffect(() => {
-        setNoteList(true);
+        setNoteList(true, null);
     }, [])
 
     return (
@@ -67,6 +77,8 @@ function NotesList({ setNote }: NoteViewProps) {
                     <input type="text"
                         placeholder='Search here' 
                         className='pl-12 pt-2 pb-2 pr-2 rounded-full focus:outline-1 focus:outline-secondary/30'
+                        
+                        onChange={searchNotes}
                     />
                 </div>
             </div>

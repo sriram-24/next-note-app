@@ -46,7 +46,7 @@ function NoteView({ note, setNote }: NoteViewProps) {
 					};
 					setNote(dummy);
 					setHasUnsavedChanges(false);
-					setNoteList(true);
+					setNoteList(true,null);
 				}
 			});
 		}

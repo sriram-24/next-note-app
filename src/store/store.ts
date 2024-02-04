@@ -1,6 +1,7 @@
 import { getAllNotes } from "@/utils/getAllNotes";
 import { INote } from "@/utils/notes";
 import { Getter, Setter, atom, createStore } from "jotai";
+import { isEmpty } from "lodash";
 import { v4 as uuidv4 } from 'uuid';
 
 //  creating jotai store
@@ -20,7 +21,7 @@ const notes = atom<Array<INote>>([])
 
 export const notesList = atom(
     (get) => get(notes),
-    async (_get,set,isRefresh : boolean) => {
+    async (_get,set,isRefresh : boolean,newNotesList : any) => {
             if(isRefresh){
                 getAllNotes().then((noteList: any) => {
                     if (noteList) {
@@ -29,10 +30,13 @@ export const notesList = atom(
         
                 })
             }
+            if(!isEmpty(newNotesList)){
+                set(notes,newNotesList)
+            }
     }
 )
 
 
 // setting the active note to notes store
 notesStore.set(activeNote,{});
-notesStore.set(notesList,true)
+notesStore.set(notesList,true,[])

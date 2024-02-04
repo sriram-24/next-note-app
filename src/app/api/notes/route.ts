@@ -31,8 +31,28 @@ export async function GET(
         })
         
     }
+    const searchQuery = req.nextUrl.searchParams.get("search");
+    
+    if(searchQuery){
+       const aggregateQury = [
+        {
+          $search: {
+            index: "NotesSearch",
+            text: {
+              query: searchQuery,
+              path: "title"
+            }
+          }
+        }
+      ]
+          
+        const searchedNotes = await Note.aggregate(aggregateQury)
+        return Response.json(searchedNotes)
+    }
+    else{
+        const notes = await Note.find()
+        return Response.json(notes)
+    }
 
-    const notes = await Note.find()
-
-    return Response.json(notes)
+    
   }
