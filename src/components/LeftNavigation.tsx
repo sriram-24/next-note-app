@@ -26,14 +26,14 @@ function LeftNavigation() {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
-                    <NavigationMenuItem>
+                    {/* <NavigationMenuItem>
                         <Link href="/categories" legacyBehavior passHref className='w-full'>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                                 <List />
                                 <span className='ml-2'>Categories </span>
                             </NavigationMenuLink>
                         </Link>
-                    </NavigationMenuItem>
+                    </NavigationMenuItem> */}
                 </NavigationMenuList>
             </NavigationMenu>
         </div>

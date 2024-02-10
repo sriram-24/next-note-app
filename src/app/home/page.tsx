@@ -21,7 +21,7 @@ function HomePage() {
             <NotesList  setNote={setNote} />
             </div>
             {/* opened notes */}
-            {!isEmpty(note) ? <NoteView note={note} setNote={setNote} /> : <EmptyNoteView />}
+            {!isEmpty(note) ? <NoteView note={note} setNote={setNote} /> : <EmptyNoteView setNote={setNote}/>}
         </div>
     )
 }

@@ -117,9 +117,9 @@ function NoteView({ note, setNote }: NoteViewProps) {
 					<button onClick={saveChanges} className="mr-4">
 						<Save />
 					</button>
-					<button className="mr-4 text-red-600">
+					<div className="mr-4 text-red-600">
 						<DeleteNoteDialog onCancel={()=>null} onConfirm={()=>{deleteNote(note)}} /> 
-					</button>
+					</div>
 				</div>
 			</div>
 			<div className="rounded-s-[30px] bg-white p-6 ">
