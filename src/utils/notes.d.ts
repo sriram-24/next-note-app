@@ -17,3 +17,8 @@ export interface INote{
     content ?: String,
     _createdDate ?: Date
 }
+
+export interface DeleteNoteDialogProps {
+    onCancel : any,
+    onConfirm : any
+}

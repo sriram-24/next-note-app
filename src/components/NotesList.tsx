@@ -4,7 +4,7 @@ import { INote, NoteViewProps } from '@/utils/notes';
 import { useAtom } from 'jotai';
 import { debounce, orderBy } from 'lodash';
 import { useEffect, useState } from 'react';
-import { PlusCircle, Search } from 'react-feather';
+import { PlusCircle, Search, Trash } from 'react-feather';
 import { v4 as uuidv4 } from 'uuid';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
@@ -108,8 +108,9 @@ function NotesList({ setNote }: NoteViewProps) {
                                     }
                                     onClick={() => { getNoteById(note) }}
                                 >
-                                    <CardHeader>
+                                    <CardHeader className='flex justify-between'>
                                         <CardTitle>{note.title}</CardTitle>
+                                        
                                     </CardHeader>
                                     <CardContent>
                                         <p className='line-clamp-2'>

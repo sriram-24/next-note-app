@@ -5,8 +5,10 @@ import { useAtom } from "jotai";
 import { MdEditor, MdPreview } from "md-editor-rt";
 import "md-editor-rt/lib/style.css";
 import React, { useEffect, useState } from "react";
-import { Edit3, Eye, Save } from "react-feather";
+import { Edit3, Eye, Save, Trash } from "react-feather";
 import moment from "moment";
+import DeleteNoteDialog from "./DeleteNoteDialog";
+import { deleteNoteById } from "@/utils/deleteNote";
 
 function NoteView({ note, setNote }: NoteViewProps) {
 	const [content, setContent] = useState("");
@@ -53,9 +55,29 @@ function NoteView({ note, setNote }: NoteViewProps) {
 					setHasUnsavedChanges(false);
 					setNoteList(true,null);
 				}
+			}).catch((err : any)=>{
+				console.log("Error occurred.",err);
+				
 			});
 		}
 	};
+
+	const deleteNote = (note : INote | undefined) =>{
+		if(note?.id){
+			deleteNoteById(note.id).then((data)=>{
+				if(data){
+					setNoteList(true,null);
+					if(setNote){
+						setNote({})
+					}
+				}
+			}
+			).catch((err : any)=>{
+				console.log(err);
+			})
+		}
+		
+	}
 
 	useEffect(() => {
 		const onBeforeUnload = (e: any) => {
@@ -92,8 +114,11 @@ function NoteView({ note, setNote }: NoteViewProps) {
 						{isPreview ?  <Edit3 /> :<Eye /> }
 					</button>
 					<span className="mr-4 ">{hasUnsavedChanges ? "Unsaved changes" : null}</span>
-					<button onClick={saveChanges} className="">
+					<button onClick={saveChanges} className="mr-4">
 						<Save />
+					</button>
+					<button className="mr-4 text-red-600">
+						<DeleteNoteDialog onCancel={()=>null} onConfirm={()=>{deleteNote(note)}} /> 
 					</button>
 				</div>
 			</div>
