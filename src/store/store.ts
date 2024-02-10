@@ -1,6 +1,6 @@
 import { getAllNotes } from "@/utils/getAllNotes";
 import { INote } from "@/utils/notes";
-import { Getter, Setter, atom, createStore } from "jotai";
+import { Getter, Setter, atom, createStore, useAtom } from "jotai";
 import { isEmpty } from "lodash";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -36,7 +36,18 @@ export const notesList = atom(
     }
 )
 
+// note preview mode 
+
+const isNotePreview = atom(true);
+
+export const previewMode = atom(
+    (get) => get(isNotePreview),
+    (_get,set,isPreview : boolean) => {
+        set(isNotePreview,isPreview)
+    }
+)
 
 // setting the active note to notes store
 notesStore.set(activeNote,{});
 notesStore.set(notesList,true,[])
+notesStore.set(previewMode,true)

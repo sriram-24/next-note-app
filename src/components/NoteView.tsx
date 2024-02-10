@@ -1,11 +1,11 @@
 import { INote, NoteViewProps } from "@/utils/notes";
 import { saveNotesChanges } from "@/utils/saveChanges";
-import { notesList } from "@/store/store";
+import { notesList, previewMode } from "@/store/store";
 import { useAtom } from "jotai";
-import { MdEditor } from "md-editor-rt";
+import { MdEditor, MdPreview } from "md-editor-rt";
 import "md-editor-rt/lib/style.css";
 import React, { useEffect, useState } from "react";
-import { Save } from "react-feather";
+import { Edit3, Eye, Save } from "react-feather";
 import moment from "moment";
 
 function NoteView({ note, setNote }: NoteViewProps) {
@@ -13,6 +13,7 @@ function NoteView({ note, setNote }: NoteViewProps) {
 	const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 	const [writemodeTitle, setWriteModeTitleb] = useState(true);
 	const [noteList, setNoteList] = useAtom(notesList);
+	const [isPreview, setPreviewMode] = useAtom(previewMode)
 
 	const setWriteModeTitle = () => {
 		setWriteModeTitleb(false);
@@ -30,6 +31,10 @@ function NoteView({ note, setNote }: NoteViewProps) {
 			setHasUnsavedChanges(true);
 		}
 	};
+
+	const ToggleEditMode = () =>{
+		setPreviewMode(!isPreview)
+	}
 
 	const saveChanges = () => {
 		if (note?.id) {
@@ -83,16 +88,22 @@ function NoteView({ note, setNote }: NoteViewProps) {
 					<span className="text-sm">{moment(note?._createdDate).format('MMMM D, YYYY')+" at "+ moment(note?._createdDate).format('h:m a')}</span>
 				</div>
 				<div className="flex items-center mr-6">
+					<button onClick={ToggleEditMode}>
+						{isPreview ?  <Edit3 /> :<Eye /> }
+					</button>
 					<span className="mr-4 ">{hasUnsavedChanges ? "Unsaved changes" : null}</span>
-					<button onClick={saveChanges} className="text-primary">
+					<button onClick={saveChanges} className="">
 						<Save />
 					</button>
 				</div>
 			</div>
 			<div className="rounded-s-[30px] bg-white p-6 ">
 				
-				<div className="" key={note?.id?.toString()}>
-					<MdEditor
+				<div className="max-h-[575px] overflow-y-scroll" key={note?.id?.toString()}>
+					{
+						isPreview?  <MdPreview className="" modelValue={note?.content ? note.content.toString() : ""} language="en-US"/> 
+						:
+						<MdEditor
 						modelValue={note?.content ? note.content.toString() : ""}
 						onChange={(e) => {
 							setContent(e);
@@ -101,6 +112,7 @@ function NoteView({ note, setNote }: NoteViewProps) {
 						preview={false}
 						language="en-US"
 					/>
+					}
 				</div>
 			</div>
 		</div>
