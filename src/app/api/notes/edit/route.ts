@@ -63,7 +63,13 @@ export async function POST(
         }
 
         if(!ObjectId.isValid(data.id)){
-            return NextResponse.json({})
+            return NextResponse.json({
+                msg:`Bad request : ${data.id} is not a valid mogodb object Id.`
+            },
+            {
+                status:400
+            }
+            )
         }
         const responseData = await Note.findByIdAndUpdate(data.id,noteData,{new: true})
         

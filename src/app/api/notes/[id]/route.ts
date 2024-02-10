@@ -40,7 +40,13 @@ export async function GET(
     }
     
     if(!ObjectId.isValid(noteId)){
-        return NextResponse.json({})
+        return NextResponse.json({
+            msg:`Bad request : ${noteId} is not a valid mogodb object Id.`
+        },
+        {
+            status:400
+        }
+        )
     }
 
     const notes = await Note.findById(noteId)
